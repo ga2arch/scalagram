@@ -12,7 +12,7 @@ import youtube.YoutubeActor.DownloadUrl
 import scala.sys.process._
 
 class InvalidCodeException(message: String) extends RuntimeException(message)
-class DownloadErrorExcepetion(message: String) extends RuntimeException(message)
+class DownloadErrorException(message: String) extends RuntimeException(message)
 
 class YoutubeWorker extends Actor with ActorLogging with BotTrait {
 
@@ -48,13 +48,16 @@ class YoutubeWorker extends Actor with ActorLogging with BotTrait {
     val dlPath = Files.createDirectories(Paths.get("static", UUID.randomUUID().toString))
 
     try {
-      val cmd = Process("youtube-dl -o %(title)s.%(ext)s -x " +
-        "-f bestaudio[filesize<50M][acodec!=opus]/bestaudio[filesize<50M] " + code, dlPath.toFile)
+      val cmd = Process(
+        "youtube-dl -o %(title)s.%(ext)s -x -f bestaudio[filesize<50M][acodec!=opus]/bestaudio[filesize<50M] " + code,
+        dlPath.toFile)
 
       cmd !! ProcessLogger(buffer append _)
 
       if (buffer.length() > 0) {
-        throw new DownloadErrorExcepetion(buffer.toString)
+        val error = buffer.toString
+        throw new DownloadErrorException(error.substring(0, error.indexOf('.')))
+
       } else {
         val files = dlPath.toFile.listFiles
         if (files.nonEmpty) {
@@ -71,7 +74,7 @@ class YoutubeWorker extends Actor with ActorLogging with BotTrait {
               null, null, title, null, null)
 
         } else {
-          throw new DownloadErrorExcepetion("File not found")
+          throw new DownloadErrorException("File not found")
         }
       }
     } finally {

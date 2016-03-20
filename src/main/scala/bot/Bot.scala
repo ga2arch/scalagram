@@ -9,10 +9,6 @@ object Bot {
   implicit val ec = system.dispatcher
 
   def run(): Unit = {
-    val server = Server.run()
-
-    server
-      .onComplete(_ =>
-        system.terminate())
+    Server.run()
   }
 }
