@@ -4,7 +4,7 @@ import com.pengrad.telegrambot.TelegramBotAdapter
 
 trait BotTrait {
   lazy val bot = {
-    println("Init telegramBot")
+    println("Starting telegramBot")
     TelegramBotAdapter.build(System.getenv("TOKEN"))
   }
 }

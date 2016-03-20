@@ -64,11 +64,11 @@ class YoutubeWorker extends Actor with ActorLogging with BotTrait {
           if (name.endsWith(".opus"))
             bot.sendAudio(chat.id(),
               InputFile.audio(path.toFile),
-              null, null, title, null, null);
+              null, null, title, null, null)
           else
             bot.sendAudio(chat.id(),
               InputFile.audio(path.toFile),
-              null, null, title, null, null);
+              null, null, title, null, null)
 
         } else {
           throw new DownloadErrorExcepetion("File not found")
