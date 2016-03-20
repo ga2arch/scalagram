@@ -1,4 +1,4 @@
-
+import bot.Bot
 
 object Main extends App {
 

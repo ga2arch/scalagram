@@ -1,3 +1,5 @@
+package bot
+
 import akka.actor.ActorSystem
 import akka.stream.ActorMaterializer
 

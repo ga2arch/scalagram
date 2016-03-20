@@ -1,4 +1,6 @@
-import akka.actor.{Props, Actor, ActorLogging}
+package bot
+
+import akka.actor.{Actor, ActorLogging, Props}
 import com.pengrad.telegrambot.model.Update
 import youtube.YoutubeActor
 import youtube.YoutubeActor.DownloadUrl

@@ -1,3 +1,5 @@
+package bot
+
 import akka.actor.Props
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.Http.ServerBinding
